@@ -1,25 +1,108 @@
-#The Scikit-Learn API is designed with the following guiding principles in mind, as outlined in the Scikit-Learn API paper:
-#Consistency, Inspection, Limited object hierarchy, Composition, Sensible defaults:
+#Code Created by: Kyle Ketterer
+#Date: 04/07/2025
 
-#Most commonly, the steps in using the Scikit-Learn Estimator API are as follows:
-#Choose a class of model by importing the appropriate estimator class from Scikit-Learn.
-#Choose model hyperparameters by instantiating this class with desired values.
-#Arrange data into a features matrix and target vector, as outlined earlier in this chapter.
-#Fit the model to your data by calling the fit method of the model instance.
-#Apply the model to new data:
-#For supervised learning, often we predict labels for unknown data using the predict method.
-#For unsupervised learning, we often transform or infer properties of the data using the transform or predict method.
-#We will now step through several simple examples of applying supervised and unsupervised learning methods.
+import pandas as pd
+from sklearn.preprocessing import LabelEncoder
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import classification_report, accuracy_score
+from sklearn.svm import SVC
+from sklearn.ensemble import RandomForestClassifier
+import time #wanted to time the training of the models
+
+#Preprocessing Data Section =====================================================
+#import datasets
+train_ks = pd.read_csv('train_kdd_small.csv')
+test_ks = pd.read_csv('test_kdd_small.csv')
+
+#create encoders
+protocol_encoder = LabelEncoder()
+service_encoder = LabelEncoder()
+flag_encoder = LabelEncoder()
+
+#fit and transform training data
+train_ks['protocol_type'] = protocol_encoder.fit_transform(train_ks['protocol_type'])
+train_ks['service'] = service_encoder.fit_transform(train_ks['service'])
+train_ks['flag'] = flag_encoder.fit_transform(train_ks['flag'])
+
+#transorm test data
+test_ks['protocol_type'] = protocol_encoder.transform(test_ks['protocol_type'])
+test_ks['service'] = service_encoder.transform(test_ks['service'])
+test_ks['flag'] = flag_encoder.transform(test_ks['flag'])
 
 
+def label_to_int(x):
+    if x == 'normal':
+        return 0
+    else:
+        return 1
+
+#identify which rows are normal and which are attacks
+train_ks['label'] = train_ks['label'].apply(label_to_int)
+test_ks['label'] = test_ks['label'].apply(label_to_int)
+
+#get all features
+X_train = train_ks.drop(columns=['label'])
+X_test = test_ks.drop(columns=['label'])
+
+#get the label
+y_train = train_ks['label']
+y_test = test_ks['label']
 
 
-# Code Created by:  Kyle Ketterer
-# Date: 04/07/2025
+#Creating and Testing Model Section =====================================================
 
-import numpy as np
-from sklearn.linear_model import LinearRegression
+#create the logistic regression model
+model = LogisticRegression(max_iter=500)
+
+#train the model
+start = time.time()
+model.fit(X_train, y_train)
+end = time.time()
+print(f"Training time: {end - start:.2f} seconds")
+
+#make predictions
+y_pred = model.predict(X_test)
+
+#classification report
+print("Logistic Regression Classification Report:-----------------")
+print(classification_report(y_test, y_pred))
+print("Accuracy: ", accuracy_score(y_test, y_pred))
+print("\n\n")
 
 
-#logistic regression
-model = LinearRegression()
+#create the SVM model =====================================================
+model = SVC()
+
+#train the SVM model
+start = time.time()
+model.fit(X_train, y_train)
+end = time.time()
+print(f"Training time: {end - start:.2f} seconds")
+
+#make predictions
+y_pred = model.predict(X_test)
+
+#print classification report
+print("SVM Classification Report:---------------------------------")
+print(classification_report(y_test, y_pred))
+print("Accuracy: ", accuracy_score(y_test, y_pred))
+print("\n\n")
+
+
+#create the Random Forest model =====================================================
+model = RandomForestClassifier()
+
+#train the Random Forest model
+start = time.time()
+model.fit(X_train, y_train)
+end = time.time()
+print(f"Training time: {end - start:.2f} seconds")
+
+#make predictions
+y_pred = model.predict(X_test)
+
+#print classification report
+print("Random Forest Regression Classification Report:------------")
+print(classification_report(y_test, y_pred))
+print("Accuracy: ", accuracy_score(y_test, y_pred))
+
