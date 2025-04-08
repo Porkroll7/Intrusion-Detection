@@ -58,7 +58,7 @@ model = LogisticRegression(max_iter=500)
 start = time.time()
 model.fit(X_train, y_train)
 end = time.time()
-print(f"Training time: {end - start:.5f} seconds")
+print(f"LR Training time: {end - start:.5f} seconds")
 
 #make predictions
 y_pred = model.predict(X_test)
@@ -77,7 +77,7 @@ model = SVC()
 start = time.time()
 model.fit(X_train, y_train)
 end = time.time()
-print(f"Training time: {end - start:.5f} seconds")
+print(f"SVM Training time: {end - start:.5f} seconds")
 
 #make predictions
 y_pred = model.predict(X_test)
@@ -96,7 +96,7 @@ model = RandomForestClassifier()
 start = time.time()
 model.fit(X_train, y_train)
 end = time.time()
-print(f"Training time: {end - start:.5f} seconds")
+print(f"RFR Training time: {end - start:.5f} seconds")
 
 #make predictions
 y_pred = model.predict(X_test)
