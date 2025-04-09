@@ -81,16 +81,16 @@ train_dataset = TensorDataset(X_train_tensor, y_train_tensor)
 test_dataset = TensorDataset(X_test_tensor, y_test_tensor)
 
 #create DataLoaders
-train_loader = DataLoader(train_dataset, batch_size=128, shuffle=True) #shuffle so that the model doesn't learn the order of the data
-test_loader = DataLoader(test_dataset, batch_size=128)
+train_DataLoader = DataLoader(train_dataset, batch_size=64, shuffle=True) #shuffle so that the model doesn't learn the order of the data
+test_DataLoader = DataLoader(test_dataset, batch_size=64)
 
 
 class IntrusionNN(nn.Module):                   #https://pytorch.org/tutorials/recipes/recipes/defining_a_neural_network.html
     def __init__(self, input_size):             #constructor
         super(IntrusionNN, self).__init__()
-        self.fc1 = nn.Linear(input_size, 64)    #maps the input features to 64 values
-        self.fc2 = nn.Linear(64, 32)            #maps the 64 values from prev layer to 32 values
-        self.output = nn.Linear(32, 2)          #maps the 32 values from prev layer to the two output cases (normal, not normal)
+        self.fc1 = nn.Linear(input_size, 8)     #maps the input features to 8 values
+        self.fc2 = nn.Linear(8, 4)              #maps the 8 values from prev layer to 4 values
+        self.output = nn.Linear(4, 2)           #maps the 4 values from prev layer to the two output cases (normal, not normal)
 
     def forward(self, x):                       #defines steps the model should take when receiving data
         x = F.relu(self.fc1(x))
@@ -113,7 +113,7 @@ losses = []
 #Training model========================================================
 for epoch in range(epochs):
     total_loss = 0
-    for features, labels in train_loader:       #get a batch of data
+    for features, labels in train_DataLoader:       #get a batch of data
         optimizer.zero_grad()                   #clear the gradients from the previous step
         outputs = model(features)               #model's predictions
         loss = lossFunction(outputs, labels)   
@@ -135,7 +135,7 @@ model.eval()  #set model to evaluation mode
 predictionList = [] 
 labelList = []
 
-for features, labels in test_loader:            #batch over test data
+for features, labels in test_DataLoader:            #batch over test data
     outputs = model(features)                   #get model predictions
     predictions = outputs.argmax(dim=1)         #get class index (highest score)
     predictionList.extend(predictions.tolist()) #store prediction
@@ -163,8 +163,6 @@ f.write("\n")
 
 
 
-
-
 import matplotlib.pyplot as plt
 #plotting loss over epochs
 plt.figure()
@@ -173,4 +171,5 @@ plt.title("Loss Over Epochs During Training")
 plt.xlabel("Epoch")
 plt.ylabel("Loss")
 plt.grid(True)
+plt.savefig("plot_loss.png")
 plt.show()

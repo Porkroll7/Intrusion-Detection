@@ -10,8 +10,21 @@ from sklearn.svm import SVC
 from sklearn.ensemble import RandomForestClassifier
 import time #wanted to time the training of the models
 
+#Helper functions ====================================================================
+def write_to_part1(text):
+    f.write(f"{text}:\n")
+    f.write(classification_report(y_test, y_pred))
+    f.write(f"Training time: {end - start:.5f} seconds\n")
+    f.write("\n\n")
 
-#Preprocessing Data Section =====================================================
+def print_part1(text):
+    print(text)
+    print(classification_report(y_test, y_pred))
+    print("Accuracy: ", accuracy_score(y_test, y_pred))
+    print(f"LR Training time: {end - start:.5f} seconds")
+    print("\n\n")
+
+#Preprocessing Data Section ==========================================================
 
 #import datasets
 train_ks = pd.read_csv('train_kdd_small.csv')
@@ -51,30 +64,23 @@ X_test = test_ks.drop(columns=['label'])
 y_train = train_ks['label']
 y_test = test_ks['label']
 
-
 #scale features so that features evenly contribute to the model
 scaler = StandardScaler()
 X_train = pd.DataFrame(scaler.fit_transform(X_train), columns=X_train.columns)
 X_test = pd.DataFrame(scaler.transform(X_test), columns=X_test.columns)
 
 
-#Creating and Testing Model Section =====================================================
+#Creating and Testing Model Section ==================================================
 
 
-def write_to_part1(text):
-    f.write(f"{text}:\n")
-    f.write(classification_report(y_test, y_pred))
-    f.write(f"Training time: {end - start:.5f} seconds\n")
-    f.write("\n\n")
-
-#create the logistic regression model
-model = LogisticRegression(max_iter=500)
+#create the logistic regression model-------------------------------------------------
+model = LogisticRegression() #default iterations is 100
 
 #train the model
 start = time.time()
 model.fit(X_train, y_train)
 end = time.time()
-print(f"LR Training time: {end - start:.5f} seconds")
+
 
 f = open("part1.txt", "w")
 
@@ -82,53 +88,39 @@ f = open("part1.txt", "w")
 y_pred = model.predict(X_test)
 
 #classification report
-print("Logistic Regression Classification Report")
-print(classification_report(y_test, y_pred))
-print("Accuracy: ", accuracy_score(y_test, y_pred))
-print("\n\n")
-
-write_to_part1("Logistic Regression Classification Report")
+print_part1("Logistic Regression Classification Report")
+write_to_part1("Logistic Regression Classification Report") #writes to part1.txt
 
 
-#create the SVM model =====================================================
+
+#create the SVM model --------------------------------------------------------------
 model = SVC()
 
 #train the SVM model
 start = time.time()
 model.fit(X_train, y_train)
 end = time.time()
-print(f"SVM Training time: {end - start:.5f} seconds")
 
 #make predictions
 y_pred = model.predict(X_test)
 
-#print classification report
-print("SVM Classification Report")
-print(classification_report(y_test, y_pred))
-print("Accuracy: ", accuracy_score(y_test, y_pred))
-print("\n\n")
-
-#write to part1.txt
-write_to_part1("SVM Classification Report")
+#classification report
+print_part1("SVM Classification Report")
+write_to_part1("SVM Classification Report") #writes to part1.txt
 
 
-#create the Random Forest model =====================================================
+
+#create the Random Forest model ---------------------------------------------------
 model = RandomForestClassifier()
 
 #train the Random Forest model
 start = time.time()
 model.fit(X_train, y_train)
 end = time.time()
-print(f"RFR Training time: {end - start:.5f} seconds")
 
 #make predictions
 y_pred = model.predict(X_test)
 
-#print classification report
-print("Random Forest Regression Classification Report")
-print(classification_report(y_test, y_pred))
-print("Accuracy: ", accuracy_score(y_test, y_pred))
-
-
-#write to part1.txt
-write_to_part1("Random Forest Regression Classification Report")
+#classification report
+print_part1("Random Forest Regression Classification Report")
+write_to_part1("Random Forest Regression Classification Report") #writes to part1.txt

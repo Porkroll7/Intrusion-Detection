@@ -7,7 +7,7 @@ Logistic Regression Classification Report:
     accuracy                           1.00      1199
    macro avg       1.00      1.00      1.00      1199
 weighted avg       1.00      1.00      1.00      1199
-Training time: 0.00389 seconds
+Training time: 0.00358 seconds
 
 
 SVM Classification Report:
@@ -19,7 +19,7 @@ SVM Classification Report:
     accuracy                           1.00      1199
    macro avg       1.00      1.00      1.00      1199
 weighted avg       1.00      1.00      1.00      1199
-Training time: 0.00732 seconds
+Training time: 0.00774 seconds
 
 
 Random Forest Regression Classification Report:
@@ -31,6 +31,6 @@ Random Forest Regression Classification Report:
     accuracy                           1.00      1199
    macro avg       1.00      1.00      1.00      1199
 weighted avg       1.00      1.00      1.00      1199
-Training time: 0.10589 seconds
+Training time: 0.09835 seconds
 
 

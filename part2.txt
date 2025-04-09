@@ -1,31 +1,31 @@
 === Loss Per Epoch ===
-Epoch 1: Loss = 14.5438
-Epoch 2: Loss = 13.4253
-Epoch 3: Loss = 12.2194
-Epoch 4: Loss = 10.9505
-Epoch 5: Loss = 9.5591
-Epoch 6: Loss = 8.0670
-Epoch 7: Loss = 6.6040
-Epoch 8: Loss = 5.2901
-Epoch 9: Loss = 4.1959
-Epoch 10: Loss = 3.3305
-Epoch 11: Loss = 2.6657
-Epoch 12: Loss = 2.1577
-Epoch 13: Loss = 1.7708
-Epoch 14: Loss = 1.4747
-Epoch 15: Loss = 1.2446
-Epoch 16: Loss = 1.0652
-Epoch 17: Loss = 0.9196
-Epoch 18: Loss = 0.8040
-Epoch 19: Loss = 0.7085
-Epoch 20: Loss = 0.6303
-Epoch 21: Loss = 0.5653
-Epoch 22: Loss = 0.5103
-Epoch 23: Loss = 0.4630
-Epoch 24: Loss = 0.4235
-Epoch 25: Loss = 0.3884
+Epoch 1: Loss = 29.4513
+Epoch 2: Loss = 27.1333
+Epoch 3: Loss = 24.8099
+Epoch 4: Loss = 21.7702
+Epoch 5: Loss = 18.2443
+Epoch 6: Loss = 14.8920
+Epoch 7: Loss = 11.9716
+Epoch 8: Loss = 9.4590
+Epoch 9: Loss = 7.3372
+Epoch 10: Loss = 5.5818
+Epoch 11: Loss = 4.2172
+Epoch 12: Loss = 3.1884
+Epoch 13: Loss = 2.4392
+Epoch 14: Loss = 1.9089
+Epoch 15: Loss = 1.5262
+Epoch 16: Loss = 1.2489
+Epoch 17: Loss = 1.0318
+Epoch 18: Loss = 0.8740
+Epoch 19: Loss = 0.7474
+Epoch 20: Loss = 0.6483
+Epoch 21: Loss = 0.5708
+Epoch 22: Loss = 0.5023
+Epoch 23: Loss = 0.4498
+Epoch 24: Loss = 0.4045
+Epoch 25: Loss = 0.3670
 
-Training time: 0.66787 seconds
+Training time: 0.97841 seconds
 
 Neural Network Classification Report
               precision    recall  f1-score   support
